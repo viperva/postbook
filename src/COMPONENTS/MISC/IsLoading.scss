@@ -1,0 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap');
+
+$space-mono: 'Space Mono', monospace;
+
+.loader{
+    font-family: $space-mono;
+    font-size: 2rem;
+    font-weight: bold;
+    text-align: center;
+}

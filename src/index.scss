@@ -1,0 +1,18 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap');
+
+$space-mono: 'Space Mono', monospace;
+
+.index{
+    position: fixed;
+    top: 100px;
+    width: 55%;
+    height: 80vh;
+    right: 1rem;
+}
+
+.wrongAddress{
+        text-align: center;
+        font-family: $space-mono;
+        font-size: 2rem;
+        font-weight: bold;
+}
