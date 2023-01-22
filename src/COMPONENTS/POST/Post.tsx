@@ -10,61 +10,69 @@ import { PostType, UserType } from "../MISC/types";
 import { Link } from "react-router-dom";
 
 const Post = () => {
+  let params = useParams();
+  const [post, setPost] = useState<PostType>();
+  const [postUser, setPostUser] = useState<UserType>();
+  const [showComments, setShowComments] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
-    let params = useParams();
-    const [post, setPost] = useState<PostType>();
-    const [postUser, setPostUser] = useState<UserType>();
-    const [showComments, setShowComments] = useState<boolean>(false);
-    const [isLoading, setIsLoading] = useState<boolean>(false);
+  const fetchPost = useCallback(async () => {
+    setIsLoading(true);
+    try {
+      const post = await getPost(params.postId);
+      const user = await getUser(post.userId.toString());
+      setPost(post);
+      setPostUser(user);
+    } catch (error) {
+      console.log(error);
+    }
+    setIsLoading(false);
+  }, [params.postId]);
 
-    const fetchPost = useCallback(async ()=> {
-      setIsLoading(true);
-      try{
-        const post = await getPost(params.postId);
-        const user = await getUser(post.userId.toString());
-        setPost(post);
-        setPostUser(user);
-      } catch (error){
-        console.log(error);
-      }
-      setIsLoading(false);
-    },[params.postId]);
+  useEffect(() => {
+    fetchPost();
+  }, [fetchPost]);
 
-    useEffect(() => {
-      fetchPost();  
-    },[fetchPost]);
-
-    return (
-      <>
-        <Header/>
-        {isLoading ? <IsLoading/> :
+  return (
+    <>
+      <Header />
+      {isLoading ? (
+        <IsLoading />
+      ) : (
         <>
-        <div className="post">
-          {postUser && 
-          <div style={{display: "flex"}}>
-            <Link to={`/users/${postUser.id}`}>
-              <img className="post__userPhoto" src={`https://picsum.photos/seed/${postUser.id}/100`} alt='user'/>
-            </Link>
-            <Link to={`/users/${postUser.id}`}>
-              <h3>Post by: {postUser.username}</h3>
-            </Link>
+          <div className="post">
+            {postUser && (
+              <div style={{ display: "flex" }}>
+                <Link to={`/users/${postUser.id}`}>
+                  <img
+                    className="post__userPhoto"
+                    src={`https://picsum.photos/seed/${postUser.id}/100`}
+                    alt="user"
+                  />
+                </Link>
+                <Link to={`/users/${postUser.id}`}>
+                  <h3>Post by: {postUser.username}</h3>
+                </Link>
+              </div>
+            )}
+            <h2 className="post__title">Title: {post && post.title}</h2>
+            <p className="post__body">
+              Content:
+              <br />
+              {post && post.content}
+            </p>
+            <button
+              onClick={() => setShowComments(!showComments)}
+              className="post__commentsButton"
+            >
+              {showComments ? "Hide comments" : "Show comments"}
+            </button>
+            {showComments && <Comments postId={params.postId} />}
           </div>
-          }
-          <h2 className="post__title">
-            Title: {post && post.title}
-          </h2>
-          <p className="post__body">
-            Content:<br/>
-            {post && post.body}
-          </p>
-          <button onClick={() => setShowComments(!showComments)} className="post__commentsButton">
-          {showComments ? "Hide comments" : "Show comments"}
-          </button>
-          {showComments && <Comments postId={params.postId}/>}
-        </div>
-        </>}
-      </>
-    );
-  }
+        </>
+      )}
+    </>
+  );
+};
 
-  export default Post;
+export default Post;

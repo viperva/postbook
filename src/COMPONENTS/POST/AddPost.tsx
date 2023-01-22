@@ -1,86 +1,64 @@
-
 import { useForm, SubmitHandler } from "react-hook-form";
-import { postPost } from "../MISC/services";
-import { PostType } from "../MISC/types";
+import { getUsers, postPost } from "../MISC/services";
+import { PostType, UserType } from "../MISC/types";
 import "./AddPost.scss";
+import { Select, selects } from "../GENERICS/Select";
+import { useEffect, useState } from "react";
+import Input, { inputs } from "../GENERICS/Input";
+import { rules } from "../MISC/rules";
+import Button from "../GENERICS/Button";
 
 type addPost = {
-    setIsSubmitted: (isSubmitted: boolean) => void,
-    update: (posts: PostType) => void,
-    amount: number
-}
+  submitHandler: (data: PostType) => void;
+};
 
-const AddPost:React.FC<addPost> = ({
-    setIsSubmitted,
-    update,
-    amount
-}) =>{
-    
-    const { register, handleSubmit, reset, formState } = useForm<PostType>();
+const AddPost: React.FC<addPost> = ({ submitHandler }) => {
+  const { register, handleSubmit, formState, reset } = useForm<PostType>();
 
-    const onSubmit: SubmitHandler<PostType> = async (data) => {
-        try{
-            
-            const post = await postPost(data);
-            amount++;
-            post.data.id = amount.toString();
+  const [users, setUsers] = useState<UserType[]>();
 
-            reset();
-            setIsSubmitted(false);
-            update(post.data);
+  useEffect(() => {
+    const placeUsers = async () => {
+      const data = await getUsers();
+      setUsers(data);
+    };
+    placeUsers();
+  }, []);
 
-        } catch(error) {
-            console.log(error)
-        }
-    }
+  const onSubmit = handleSubmit((data: PostType) => {
+    submitHandler(data);
+    reset();
+  });
 
-    return(
-        <>
-            <form className="postForm" onSubmit={handleSubmit(onSubmit)}>
-            <div className="postForm__input">
-                <label htmlFor="UserId">UserId:</label>
-                <input type='number' {...(register("userId", {required: true, max: {value: 10, message: 'Enter Id between 1 and 10'}, min: {value: 1, message: 'Enter Id between 1 and 10'}}))}/>
-                <span style={{width: "20rem"}}>
-                {formState.errors.userId?.message && (<span className="form__error">{formState.errors.userId?.message}</span>)}
-                </span>
-            </div>
+  return (
+    <form className="postForm">
+      <Select<PostType>
+        register={register}
+        formState={formState}
+        type={selects.user}
+        label="User:"
+        rules={rules.userSelect}
+        options={users}
+        optionName="username"
+      />
+      <Input<PostType>
+        register={register}
+        formState={formState}
+        type={inputs.title}
+        label="Title:"
+        rules={rules.title}
+      />
+      <Input<PostType>
+        register={register}
+        formState={formState}
+        type={inputs.content}
+        label="Content:"
+        rules={rules.content}
+      />
 
-            <div className="postForm__input">
-                <label htmlFor="title">Title:</label>
-                <input type='string' {...(register("title",
-                {
-                required: true,
-                maxLength: {
-                    value: 60,
-                    message: 'Enter a title under 60 characters.'
-                }
-                }))}/>
-                <span style={{width: "20rem"}}>
-                {formState.errors.title?.message && (<span className="form__error">{formState.errors.title?.message}</span>)}
-                </span>
-            </div>
-
-            <div className="postForm__input">
-                <label htmlFor="body">Content:</label>
-                <textarea className="postForm__body" rows={6} cols={20}  {...(register("body",
-                {
-                    required: true,
-                    maxLength: {
-                        value: 1000,
-                        message: 'Enter a post body under 1000 characters.'
-                    }
-                    }
-                ))}/>
-                <span style={{width: "20rem"}}>
-                {formState.errors.body?.message && (<span className="form__error">{formState.errors.body?.message}</span>)}
-                </span>
-            </div>
-
-            <input className="submitButton" type="submit"/>
-
-        </form>
-        </>
-    );
-}
+      <Button onClick={onSubmit} label="ADD POST" />
+    </form>
+  );
+};
 
 export default AddPost;
