@@ -1,38 +1,19 @@
 import { deleteComment, getComments } from "../MISC/services";
 import { CommentType } from "../MISC/types";
 import { useCallback, useEffect, useState } from "react";
-import IsLoading from "../MISC/IsLoading";
+import IsLoading from "../LAYOUT/IsLoading";
 import AddComment from "./AddComment";
+import Button from "../GENERICS/Button";
+import { useParams } from "react-router-dom";
 
-interface CommentsType {
-  postId: string | undefined;
-}
+interface CommentsType {}
 
-const Comments: React.FC<CommentsType> = ({ postId }) => {
+const Comments: React.FC<CommentsType> = () => {
+  const { postId } = useParams();
   const [comments, setComments] = useState<CommentType[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isAddComment, setIsAddComment] = useState<boolean>(false);
   const [wasDeleted, setWasDeleted] = useState<boolean>(false);
-
-  const update = (comment: CommentType) => {
-    setComments((prev) => [...prev, comment]);
-  };
-
-  const deleteHandler = async (postId: number, commentId: number) => {
-    const newComments = comments.filter(
-      (comment) => parseInt(comment.id) !== commentId
-    );
-    setComments(newComments);
-    try {
-      await deleteComment(postId, commentId);
-      setWasDeleted(true);
-      setTimeout(() => {
-        setWasDeleted(false);
-      }, 3500);
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
   const fetchComments = useCallback(async () => {
     setIsLoading(true);
@@ -48,7 +29,7 @@ const Comments: React.FC<CommentsType> = ({ postId }) => {
   const submitHandler = (data: CommentType) => {
     setComments([
       ...comments,
-      { ...data, id: (comments.length + 1).toString() },
+      { ...data, id: comments[comments.length - 1].id + 1 },
     ]);
   };
 
@@ -64,41 +45,37 @@ const Comments: React.FC<CommentsType> = ({ postId }) => {
       {isLoading ? (
         <IsLoading />
       ) : comments.length ? (
-        comments.map((comment: CommentType) => (
-          <div className="post__comment" key={comment.id}>
-            <img
-              className="post__commentPhoto"
-              src={`https://picsum.photos/seed/${comment.id}/30`}
-              alt="user"
-            />
-            <span className="post__comment__username">
-              Username: {comment.username}
-            </span>
-            {" - email: "}
-            <span className="post__comment__email">{comment.email}</span>
-            {postId && (
-              <button
-                onClick={() =>
-                  deleteHandler(parseInt(postId), parseInt(comment.id))
-                }
-                className="post__comment__delete"
-              >
-                Delete comment
-              </button>
-            )}
-            <p className="post__comment__body">
-              Comment:
-              <br />
-              {comment.body}
-            </p>
-          </div>
-        ))
+        comments.map((comment: CommentType) => {
+          console.log(comment.id);
+          return (
+            <div className="post__comment" key={comment.id}>
+              <img
+                className="post__commentPhoto"
+                src={`https://picsum.photos/seed/${comment.id}/30`}
+                alt="user"
+              />
+              <span className="post__comment__username">
+                Username: {comment.username}
+              </span>
+              {" - email: "}
+              <span className="post__comment__email">{comment.email}</span>
+
+              <p className="post__comment__body">
+                Comment:
+                <br />
+                {comment.body}
+              </p>
+            </div>
+          );
+        })
       ) : (
         <div style={{ margin: "1rem 0 1rem 0" }}>No comments.</div>
       )}
-      <button onClick={() => setIsAddComment(!isAddComment)}>
-        {isAddComment ? "Cancel" : "Add Comment"}
-      </button>
+      <Button
+        label={isAddComment ? "Cancel" : "Add Comment"}
+        onClick={() => setIsAddComment(!isAddComment)}
+      />
+
       {isAddComment && <AddComment submitHandler={submitHandler} />}
     </div>
   );

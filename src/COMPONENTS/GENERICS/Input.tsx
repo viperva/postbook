@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { UserType } from "../MISC/types";
 import { FieldValues, Path, UseFormRegister, useForm } from "react-hook-form";
+import "./Generics.scss";
 
 export enum inputs {
   title = "title",
@@ -39,12 +40,12 @@ const Input = <FormFieldsType extends FieldValues>({
   label,
 }: InputProps<FormFieldsType>) => {
   return (
-    <div className="postForm__input">
+    <div className="inputContainer">
       <label htmlFor={type}>{label}</label>
-      <input type="string" {...register(type, rules)} />
+      <input className="input" type="string" {...register(type, rules)} />
       <div style={{ width: "20rem" }}>
         {formState.errors[type]?.message && (
-          <span className="form__error">{formState.errors[type].message}</span>
+          <span className="error">{formState.errors[type].message}</span>
         )}
       </div>
     </div>

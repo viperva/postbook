@@ -1,0 +1,36 @@
+@import url("https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap");
+
+$space-mono: "Space Mono", monospace;
+
+.background {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  z-index: -1;
+  background-image: url(./../../static/piestlo.jpg);
+  background-size: cover;
+}
+
+.about {
+  width: 100%;
+  margin-top: 5%;
+  font-family: $space-mono;
+  text-align: center;
+
+  &__welcome {
+    margin: 1rem;
+  }
+
+  &__option {
+    margin: 1rem;
+  }
+
+  &__link {
+    font-size: 4rem;
+    font-weight: bold;
+  }
+
+  &__link:hover {
+    text-decoration: underline;
+  }
+}

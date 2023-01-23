@@ -26,7 +26,10 @@ export const rules = {
     },
   },
   username: {
-    required: true,
+    required: {
+      value: true,
+      message: "The 'username' field is required",
+    },
     maxLength: {
       value: 30,
       message: "Enter a username under 30 characters.",
@@ -37,10 +40,13 @@ export const rules = {
     },
   },
   email: {
-    required: true,
+    required: {
+      value: true,
+      message: "The 'email' field is required",
+    },
     maxLength: {
       value: 40,
-      message: "Enter an address under 40 characters.",
+      message: "Enter an email under 40 characters.",
     },
     pattern: {
       value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
@@ -48,14 +54,20 @@ export const rules = {
     },
   },
   commentBody: {
-    required: true,
+    required: {
+      value: true,
+      message: "The 'comment' field is required",
+    },
     maxLength: {
       value: 300,
       message: "Enter a message under 300 characters.",
     },
   },
   name: {
-    required: true,
+    required: {
+      value: true,
+      message: "The 'name' field is required",
+    },
     maxLength: {
       value: 30,
       message: "Enter a name under 30 characters.",
@@ -66,7 +78,10 @@ export const rules = {
     },
   },
   phone: {
-    required: true,
+    required: {
+      value: true,
+      message: "The 'phone' field is required",
+    },
     maxLength: {
       value: 25,
       message: "Enter a valid phone number.",
@@ -77,7 +92,10 @@ export const rules = {
     },
   },
   website: {
-    required: false,
+    required: {
+      value: true,
+      message: "The 'website' field is required",
+    },
     maxLength: {
       value: 30,
       message: "Enter a valid website.",

@@ -1,11 +1,12 @@
 import React, { useCallback, useEffect, useState } from "react";
-import Header from "../MISC/Header";
-import IsLoading from "../MISC/IsLoading";
+import Header from "../LAYOUT/Header";
+import IsLoading from "../LAYOUT/IsLoading";
 import { getUsers } from "../MISC/services";
 import { Link } from "react-router-dom";
 import "./users.scss";
 import AddUser from "./AddUser";
 import { UserType } from "../MISC/types";
+import Button from "../GENERICS/Button";
 
 const Users = () => {
   const [users, setUsers] = useState<UserType[]>([]);
@@ -33,14 +34,23 @@ const Users = () => {
 
   return (
     <>
-      <Header />
       {isLoading ? (
         <IsLoading />
       ) : (
         <>
-          <button onClick={() => setIsAddUser(!isAddUser)} className="addPost">
-            {isAddUser ? "Cancel" : "Add User"}
-          </button>
+          <div
+            style={{
+              position: "absolute",
+              left: "50%",
+              top: "10%",
+              translate: "-50%",
+            }}
+          >
+            <Button
+              label={isAddUser ? "Cancel" : "Add User"}
+              onClick={() => setIsAddUser(!isAddUser)}
+            />
+          </div>
           {isAddUser && (
             <div className="addPost__form">
               <AddUser submitHandler={submitHandler} />

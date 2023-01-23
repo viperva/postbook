@@ -1,11 +1,12 @@
 import { useCallback, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { deletePost, getPosts, getUsers } from "../MISC/services";
-import Header from "../MISC/Header";
-import IsLoading from "../MISC/IsLoading";
+import Header from "../LAYOUT/Header";
+import IsLoading from "../LAYOUT/IsLoading";
 import AddPost from "./AddPost";
 import { PostType, UserType } from "../MISC/types";
 import "./posts.scss";
+import Button from "../GENERICS/Button";
 
 const Posts = () => {
   const [posts, setPosts] = useState<PostType[]>([]);
@@ -68,7 +69,6 @@ const Posts = () => {
 
   return (
     <>
-      <Header />
       <div style={{ right: wasDeleted ? "1rem" : "-100%" }} className="delete">
         Post was successfuly deleted!
       </div>
@@ -76,9 +76,20 @@ const Posts = () => {
         <IsLoading />
       ) : (
         <>
-          <button onClick={() => setIsAddPost(!isAddPost)} className="addPost">
-            {isAddPost ? "Cancel" : "Add Post"}
-          </button>
+          <div
+            style={{
+              position: "absolute",
+              left: "50%",
+              top: "10%",
+              translate: "-50%",
+            }}
+          >
+            <Button
+              label={isAddPost ? "Cancel" : "Add Post"}
+              onClick={() => setIsAddPost(!isAddPost)}
+            />
+          </div>
+
           {isAddPost && (
             <div className="addPost__form">
               <AddPost submitHandler={submitHandler} />

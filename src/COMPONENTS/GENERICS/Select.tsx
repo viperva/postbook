@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { UserType } from "../MISC/types";
 import { getUsers } from "../MISC/services";
 import { FieldValues, Path, UseFormRegister, useForm } from "react-hook-form";
+import "./Generics.scss";
 
 export enum selects {
   user = "userId",
@@ -27,9 +28,9 @@ export const Select = <FormFieldsType extends FieldValues>({
   optionName,
 }: SelectProps<FormFieldsType>) => {
   return (
-    <div>
+    <div className="inputContainer">
       <label htmlFor={type}>{label}</label>
-      <select {...register(type, rules)}>
+      <select className="input" {...register(type, rules)}>
         <option value="">-------------</option>
         {options?.map((o) => (
           <option value={o.id} key={o.id}>
@@ -39,7 +40,7 @@ export const Select = <FormFieldsType extends FieldValues>({
       </select>
       <div style={{ width: "20rem" }}>
         {formState.errors[type]?.message && (
-          <span className="form__error">{formState.errors[type].message}</span>
+          <span className="error">{formState.errors[type].message}</span>
         )}
       </div>
     </div>

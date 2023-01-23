@@ -1,43 +1,29 @@
-@import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap");
 
-$space-mono: 'Space Mono', monospace;
+$space-mono: "Space Mono", monospace;
 
-.submitButton{
-    font-family: $space-mono;
-    font-weight: bold;
-    border-radius: 5px;
-    box-shadow: 0 0px 3px 1px rgba(0, 0, 0, 0.2); 
-    padding: 0.5rem;
-    border: solid 0.1px rgba(0, 0, 0);
-    cursor: pointer;
+.submitButton {
+  font-family: $space-mono;
+  font-weight: bold;
+  border-radius: 5px;
+  box-shadow: 0 0px 3px 1px rgba(0, 0, 0, 0.2);
+  padding: 0.5rem;
+  border: solid 0.1px rgba(0, 0, 0);
+  cursor: pointer;
 }
 
-.form{ 
-    width: fit-content;
-    border-radius: 5px;
-    background-color: rgba(0, 0, 0, 0.04);
-    box-shadow: 0 0px 5px 3px rgba(0, 0, 0, 0.1); 
-    padding: 0.5rem;
-    border: solid 0.1px rgba(0, 0, 0, 0.5);
-    margin-top: 1rem;
+.form {
+  width: fit-content;
+  border-radius: 5px;
+  background-color: rgba(0, 0, 0, 0.04);
+  box-shadow: 0 0px 5px 3px rgba(0, 0, 0, 0.1);
+  padding: 0.5rem;
+  border: solid 0.1px rgba(0, 0, 0, 0.5);
+  margin-top: 1rem;
 
-    &__input{
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        margin-bottom: 1rem;
-        width: 50%;
-        font-weight: bold;
-    }
-
-    &__error{
-        color: red;
-        
-    }
-
-    &__body{
-        resize: none;
-        min-width: 30rem;
-        height: 10rem;
-    }
+  &__body {
+    resize: none;
+    min-width: 30rem;
+    height: 10rem;
+  }
 }

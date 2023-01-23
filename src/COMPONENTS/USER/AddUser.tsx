@@ -142,7 +142,7 @@ const AddUser: React.FC<addUser> = ({ submitHandler }) => {
             rules={rules.bs}
           />
 
-          <Button onClick={onSubmit} label="ADD USER" />
+          <Button onClick={onSubmit} label="Add User" />
         </div>
       </form>
     </>

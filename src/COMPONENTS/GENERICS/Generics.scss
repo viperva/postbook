@@ -1,0 +1,44 @@
+.button {
+  font-size: 1rem;
+  font-weight: bold;
+  border-radius: 5px;
+  box-shadow: 0 0px 3px 1px rgba(0, 0, 0, 0.2);
+  padding: 0.5rem 1rem;
+  border: solid 0.1px rgba(0, 0, 0);
+  cursor: pointer;
+  bottom: 2rem;
+  right: 2rem;
+  margin-top: 1rem;
+  background-color: rgba(245, 245, 245, 0.5);
+  width: fit-content;
+  //   float: right;
+  &:hover {
+    background-color: rgba(245, 245, 245, 0.75);
+    box-shadow: 0 0px 4px 1px rgba(0, 0, 0, 0.4);
+  }
+}
+
+.inputContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  font-weight: bold;
+}
+
+.input {
+  background-color: rgba(245, 245, 245, 0.5);
+  border: 1px solid black;
+  border-radius: 4px;
+}
+
+.error {
+  color: red;
+}
+
+.select {
+  &__select {
+    background-color: rgba(245, 245, 245, 0.5);
+    border: 1px solid black;
+    border-radius: 4px;
+  }
+}

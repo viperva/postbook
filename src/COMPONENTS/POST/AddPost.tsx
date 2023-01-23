@@ -56,7 +56,7 @@ const AddPost: React.FC<addPost> = ({ submitHandler }) => {
         rules={rules.content}
       />
 
-      <Button onClick={onSubmit} label="ADD POST" />
+      <Button onClick={onSubmit} label="Add Post" />
     </form>
   );
 };

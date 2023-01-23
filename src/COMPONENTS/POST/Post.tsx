@@ -2,12 +2,13 @@ import React, { useCallback } from "react";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { getPost, getUser } from "../MISC/services";
-import Header from "../MISC/Header";
-import IsLoading from "../MISC/IsLoading";
+import Header from "../LAYOUT/Header";
+import IsLoading from "../LAYOUT/IsLoading";
 import "./post.scss";
 import Comments from "../COMMENT/Comments";
 import { PostType, UserType } from "../MISC/types";
 import { Link } from "react-router-dom";
+import Button from "../GENERICS/Button";
 
 const Post = () => {
   let params = useParams();
@@ -35,7 +36,6 @@ const Post = () => {
 
   return (
     <>
-      <Header />
       {isLoading ? (
         <IsLoading />
       ) : (
@@ -61,13 +61,11 @@ const Post = () => {
               <br />
               {post && post.content}
             </p>
-            <button
+            <Button
+              label={showComments ? "Hide comments" : "Show comments"}
               onClick={() => setShowComments(!showComments)}
-              className="post__commentsButton"
-            >
-              {showComments ? "Hide comments" : "Show comments"}
-            </button>
-            {showComments && <Comments postId={params.postId} />}
+            />
+            {showComments && <Comments />}
           </div>
         </>
       )}
