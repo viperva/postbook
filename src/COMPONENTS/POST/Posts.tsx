@@ -1,12 +1,11 @@
 import { useCallback, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import { deletePost, getPosts, getUsers } from "../MISC/services";
-import Header from "../LAYOUT/Header";
 import IsLoading from "../LAYOUT/IsLoading";
 import AddPost from "./AddPost";
 import { PostType, UserType } from "../MISC/types";
 import "./posts.scss";
 import Button from "../GENERICS/Button";
+import PostPreview from "./PostPreview";
 
 const Posts = () => {
   const [posts, setPosts] = useState<PostType[]>([]);
@@ -14,10 +13,6 @@ const Posts = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isAddPost, setIsAddPost] = useState<boolean>(false);
   const [wasDeleted, setWasDeleted] = useState<boolean>(false);
-
-  const update = (post: PostType) => {
-    setPosts((prev) => [post, ...prev]);
-  };
 
   const deleteHandler = async (postId: number) => {
     const newPosts = posts.filter((post) => parseInt(post.id) !== postId);
@@ -97,33 +92,12 @@ const Posts = () => {
           )}
           <nav className="posts">
             {posts.map((post) => (
-              <div key={post.id} className="posts__body">
-                <button
-                  className="posts__deleteButton"
-                  onClick={() => deleteHandler(parseInt(post.id))}
-                >
-                  X
-                </button>
-
-                <h3 style={{ marginBottom: "1rem" }}>Title:</h3>
-
-                <Link className="posts__link" to={`/posts/${post.id}`}>
-                  {post.title}
-                </Link>
-                {users[post.userId - 1] && (
-                  <Link
-                    to={`/users/${users[post.userId - 1].id}`}
-                    className="posts__info"
-                  >
-                    <img
-                      className="posts__userPhoto"
-                      src={`https://picsum.photos/seed/${post.userId}/50`}
-                      alt="user"
-                    />
-                    <h4>By: {users[post.userId - 1].username}</h4>
-                  </Link>
-                )}
-              </div>
+              <PostPreview
+                key={post.id}
+                post={post}
+                users={users}
+                onDelete={deleteHandler}
+              />
             ))}
           </nav>
         </>

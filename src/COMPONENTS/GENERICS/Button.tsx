@@ -3,7 +3,7 @@ import "./Generics.scss";
 
 type ButtonProps = {
   label: string;
-  onClick: () => void;
+  onClick: any;
 };
 
 const Button: React.FC<ButtonProps> = ({ onClick, label }) => {

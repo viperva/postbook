@@ -1,7 +1,7 @@
 import ReactDOM from "react-dom/client";
 import App from "./App";
 import "./index.scss";
-import { Provider } from "react-redux";
+// import { Provider } from "react-redux";
 import Header from "./COMPONENTS/LAYOUT/Header";
 
 const root = ReactDOM.createRoot(

@@ -105,6 +105,23 @@ a {
     }
   }
 
+  &__editButton {
+    width: 2.5rem;
+    height: 2.5rem;
+    position: absolute;
+    right: 4rem;
+    top: 1rem;
+    transition: 0.1s;
+    border-radius: 100%;
+    opacity: 0.5;
+
+    &:hover {
+      box-shadow: 0 0px 3px 2px rgba(0, 0, 0, 0.2);
+      opacity: 1;
+      font-weight: bold;
+    }
+  }
+
   &__body {
     box-shadow: 0 0px 10px 3px rgba(0, 0, 0, 0.1);
     border-radius: 5px;

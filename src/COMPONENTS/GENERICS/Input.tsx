@@ -28,21 +28,30 @@ type InputProps<FormFieldsType extends FieldValues> = {
   register: UseFormRegister<FormFieldsType>;
   formState: any;
   rules: any;
-  label: string;
-  // onChange: () => void;
+  label?: string;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  defaultValue?: string;
 };
 
 const Input = <FormFieldsType extends FieldValues>({
   type,
   register,
   formState,
+  onChange,
   rules,
   label,
+  defaultValue,
 }: InputProps<FormFieldsType>) => {
   return (
     <div className="inputContainer">
       <label htmlFor={type}>{label}</label>
-      <input className="input" type="string" {...register(type, rules)} />
+      <input
+        defaultValue={defaultValue}
+        className="input"
+        type="string"
+        {...register(type, rules)}
+        onChange={onChange}
+      />
       <div style={{ width: "20rem" }}>
         {formState.errors[type]?.message && (
           <span className="error">{formState.errors[type].message}</span>
