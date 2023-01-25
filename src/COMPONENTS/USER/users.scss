@@ -19,6 +19,7 @@ $space-mono: "Space Mono", monospace;
   font-weight: bold;
   border-radius: 5px;
   box-shadow: 0 0px 3px 1px rgba(0, 0, 0, 0.2);
+  background-color: rgba(245, 245, 245, 0.5);
   padding: 1rem;
   border: solid 0.1px rgba(0, 0, 0);
   cursor: pointer;
@@ -83,6 +84,7 @@ $space-mono: "Space Mono", monospace;
   flex-direction: row;
   justify-content: space-around;
   position: relative;
+  background-color: rgba(245, 245, 245, 0.5);
 
   &__section {
     width: 25rem;

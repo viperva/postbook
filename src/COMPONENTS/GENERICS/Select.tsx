@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { UserType } from "../MISC/types";
-import { getUsers } from "../MISC/services";
-import { FieldValues, Path, UseFormRegister, useForm } from "react-hook-form";
+import { FieldValues, Path, UseFormRegister } from "react-hook-form";
 import "./Generics.scss";
 
 export enum selects {

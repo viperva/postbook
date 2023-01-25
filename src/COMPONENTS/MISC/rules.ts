@@ -5,18 +5,18 @@ export const rules = {
       message: "The 'title' field is required",
     },
     maxLength: {
-      value: 25,
-      message: `Enter a title under 25 characters.`,
+      value: 50,
+      message: `Enter a title under 50 characters.`,
     },
   },
-  content: {
+  postBody: {
     required: {
       value: true,
       message: "The 'content' field is required",
     },
     maxLength: {
-      value: 150,
-      message: `Enter a title under 150 characters.`,
+      value: 750,
+      message: `Enter post content under 750 characters.`,
     },
   },
   userSelect: {

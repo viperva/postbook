@@ -1,12 +1,13 @@
-import { useForm, SubmitHandler } from "react-hook-form";
-import { getUsers, postPost } from "../MISC/services";
-import { PostType, UserType } from "../MISC/types";
+import { useForm } from "react-hook-form";
+import { PostType } from "../MISC/types";
 import "./AddPost.scss";
 import { Select, selects } from "../GENERICS/Select";
-import { useEffect, useState } from "react";
 import Input, { inputs } from "../GENERICS/Input";
 import { rules } from "../MISC/rules";
 import Button from "../GENERICS/Button";
+import { useSelector } from "react-redux";
+import { selectUsers } from "../../store";
+import Textarea from "../GENERICS/Textarea";
 
 type addPost = {
   submitHandler: (data: PostType) => void;
@@ -15,15 +16,7 @@ type addPost = {
 const AddPost: React.FC<addPost> = ({ submitHandler }) => {
   const { register, handleSubmit, formState, reset } = useForm<PostType>();
 
-  const [users, setUsers] = useState<UserType[]>();
-
-  useEffect(() => {
-    const placeUsers = async () => {
-      const data = await getUsers();
-      setUsers(data);
-    };
-    placeUsers();
-  }, []);
+  const users = useSelector(selectUsers);
 
   const onSubmit = handleSubmit((data: PostType) => {
     submitHandler(data);
@@ -48,12 +41,12 @@ const AddPost: React.FC<addPost> = ({ submitHandler }) => {
         label="Title:"
         rules={rules.title}
       />
-      <Input<PostType>
+      <Textarea<PostType>
+        type="body"
         register={register}
         formState={formState}
-        type={inputs.content}
+        rules={rules.postBody}
         label="Content:"
-        rules={rules.content}
       />
 
       <Button onClick={onSubmit} label="Add Post" />

@@ -1,21 +1,20 @@
 .editForm {
-    position: relative;
-    width: 330px;
-    height: 250px;
-    background-color: #fff;
-    box-shadow: 0 0px 10px 3px rgba(0, 0, 0, 0.1);
-    border-radius: 20px;
-    border: solid 0.5px black;
-    padding: 25px;
-    display: flex;
-    flex-flow: column;
-    align-items: flex-start;
-    z-index: 5;
+  position: relative;
+
+  background-color: rgba(245, 245, 245, 0.85);
+  border: solid 0.5px black;
+  box-shadow: 0 0px 10px 3px rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
+  padding: 25px;
+  display: flex;
+  flex-flow: column;
+  align-items: flex-start;
+  z-index: 5;
 }
 .textarea {
-    width: 310px;
-    height: 300px;
+  width: 310px;
+  height: 300px;
 }
 .flex__container > button {
-    margin-right: 10px;
+  margin-right: 10px;
 }

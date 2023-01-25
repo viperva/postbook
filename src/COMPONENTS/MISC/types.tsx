@@ -32,7 +32,7 @@ export type PostType = {
   userId: number;
   id: string;
   title: string;
-  content: string;
+  body: string;
 };
 
 export type CommentType = {
@@ -41,4 +41,8 @@ export type CommentType = {
   username: string;
   email: string;
   body: string;
+};
+
+export type AddCommentType = {
+  submitHandler: (data: CommentType) => void;
 };

@@ -1,5 +1,4 @@
-import { SubmitHandler, useForm } from "react-hook-form";
-import { postUser } from "../MISC/services";
+import { useForm } from "react-hook-form";
 import { UserType } from "../MISC/types";
 import Input, { inputs } from "../GENERICS/Input";
 import { rules } from "../MISC/rules";

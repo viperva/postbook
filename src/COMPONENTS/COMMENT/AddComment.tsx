@@ -1,14 +1,9 @@
-import { useForm, SubmitHandler } from "react-hook-form";
-import { postComment } from "../MISC/services";
-import { CommentType } from "../MISC/types";
+import { useForm } from "react-hook-form";
+import { AddCommentType, CommentType } from "../MISC/types";
 import "./AddComment.scss";
 import Input, { inputs } from "../GENERICS/Input";
 import { rules } from "../MISC/rules";
 import Button from "../GENERICS/Button";
-
-type AddCommentType = {
-  submitHandler: (data: CommentType) => void;
-};
 
 const AddComment: React.FC<AddCommentType> = ({ submitHandler }) => {
   const { register, handleSubmit, reset, formState } = useForm<CommentType>();

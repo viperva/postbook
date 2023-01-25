@@ -3,26 +3,10 @@ import { FieldValues, Path, UseFormRegister } from "react-hook-form";
 import "./Generics.scss";
 
 export enum inputs {
-  title = "title",
-  postBody = "body",
-  username = "username",
-  email = "email",
-  commentBody = "body",
-  name = "name",
-  phone = "phone",
-  website = "website",
-  street = "address.street",
-  suite = "address.suite",
-  city = "address.city",
-  zip = "address.zipcode",
-  latitude = "address.geo.lat",
-  longitude = "address.geo.lng",
-  companyName = "company.name",
-  catchphrase = "company.catchPhrase",
-  bs = "company.bs",
+  content = "content",
 }
 
-type InputProps<FormFieldsType extends FieldValues> = {
+type TextareaProps<FormFieldsType extends FieldValues> = {
   type: Path<FormFieldsType>;
   register: UseFormRegister<FormFieldsType>;
   formState: any;
@@ -32,7 +16,7 @@ type InputProps<FormFieldsType extends FieldValues> = {
   defaultValue?: string;
 };
 
-const Input = <FormFieldsType extends FieldValues>({
+const Textarea = <FormFieldsType extends FieldValues>({
   type,
   register,
   formState,
@@ -40,16 +24,15 @@ const Input = <FormFieldsType extends FieldValues>({
   rules,
   label,
   defaultValue,
-}: InputProps<FormFieldsType>) => {
+}: TextareaProps<FormFieldsType>) => {
   return (
     <div className="inputContainer">
       <label htmlFor={type}>{label}</label>
-      <input
+      <textarea
         defaultValue={defaultValue}
         className="input"
-        type="text"
+        rows={8}
         {...register(type, rules)}
-        onChange={onChange}
       />
       <div style={{ width: "20rem" }}>
         {formState.errors[type]?.message && (
@@ -60,4 +43,4 @@ const Input = <FormFieldsType extends FieldValues>({
   );
 };
 
-export default Input;
+export default Textarea;

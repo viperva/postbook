@@ -1,4 +1,4 @@
-import { deleteComment, getComments } from "../MISC/services";
+import { getComments } from "../MISC/services";
 import { CommentType } from "../MISC/types";
 import { useCallback, useEffect, useState } from "react";
 import IsLoading from "../LAYOUT/IsLoading";
@@ -13,23 +13,25 @@ const Comments: React.FC<CommentsType> = () => {
   const [comments, setComments] = useState<CommentType[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isAddComment, setIsAddComment] = useState<boolean>(false);
-  const [wasDeleted, setWasDeleted] = useState<boolean>(false);
+  const [wasDeleted] = useState<boolean>(false);
 
   const fetchComments = useCallback(async () => {
     setIsLoading(true);
-    try {
-      const comments = await getComments(postId);
-      setComments(comments);
-    } catch {
-      console.error("Couldn't load comments.");
-    }
+    const comments = await getComments(postId);
+    setComments(comments);
+
     setIsLoading(false);
   }, [postId]);
 
   const submitHandler = (data: CommentType) => {
     setComments([
       ...comments,
-      { ...data, id: comments[comments.length - 1].id + 1 },
+      {
+        ...data,
+        id: comments.length
+          ? (Number(comments[comments.length - 1].id) + 1).toString()
+          : "1",
+      },
     ]);
   };
 
@@ -46,7 +48,6 @@ const Comments: React.FC<CommentsType> = () => {
         <IsLoading />
       ) : comments.length ? (
         comments.map((comment: CommentType) => {
-          console.log(comment.id);
           return (
             <div className="post__comment" key={comment.id}>
               <img
