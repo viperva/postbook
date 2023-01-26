@@ -18,13 +18,14 @@ export const EditPost: React.FC<editPost> = ({
   onCloseEditing,
   submitHandler,
 }) => {
-  const { register, formState, handleSubmit } = useForm<PostType>();
+  const { register, formState, handleSubmit, unregister } = useForm<PostType>();
 
   const onSubmit = handleSubmit((data: PostType) => {
     submitHandler(data);
     onCloseEditing(false);
   });
   const handleCloseEditing = () => {
+    unregister();
     onCloseEditing(false);
   };
 

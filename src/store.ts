@@ -53,7 +53,6 @@ export const postsSlice = createSlice({
         title: action.payload.newTitle,
         body: action.payload.newBody,
       };
-      console.log(state.posts.slice(0, Number(action.payload.id) - 1));
       state.posts = [
         ...state.posts.slice(0, Number(action.payload.id) - 1),
         editedPost,

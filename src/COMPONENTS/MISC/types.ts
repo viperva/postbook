@@ -46,3 +46,9 @@ export type CommentType = {
 export type AddCommentType = {
   submitHandler: (data: CommentType) => void;
 };
+
+export type RulesType = {
+  required?: { value: boolean; message?: string };
+  maxLength?: { value: number; message: string };
+  pattern?: { value: RegExp; message: string };
+};

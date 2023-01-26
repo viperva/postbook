@@ -1,6 +1,6 @@
 import React from "react";
 import { UserType } from "../MISC/types";
-import { FieldValues, Path, UseFormRegister } from "react-hook-form";
+import { FieldValues, FormState, Path, UseFormRegister } from "react-hook-form";
 import "./Generics.scss";
 
 export enum selects {
@@ -9,7 +9,7 @@ export enum selects {
 
 type SelectProps<FormFieldsType extends FieldValues> = {
   register: UseFormRegister<FormFieldsType>;
-  formState: any;
+  formState: FormState<FormFieldsType>;
   type: Path<FormFieldsType>;
   rules: any;
   label: string;
@@ -39,7 +39,9 @@ export const Select = <FormFieldsType extends FieldValues>({
       </select>
       <div style={{ width: "20rem" }}>
         {formState.errors[type]?.message && (
-          <span className="error">{formState.errors[type].message}</span>
+          <span className="error">
+            {formState.errors[type]?.message?.toString()}
+          </span>
         )}
       </div>
     </div>

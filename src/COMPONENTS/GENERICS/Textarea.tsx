@@ -1,5 +1,5 @@
 import React from "react";
-import { FieldValues, Path, UseFormRegister } from "react-hook-form";
+import { FieldValues, FormState, Path, UseFormRegister } from "react-hook-form";
 import "./Generics.scss";
 
 export enum inputs {
@@ -9,7 +9,7 @@ export enum inputs {
 type TextareaProps<FormFieldsType extends FieldValues> = {
   type: Path<FormFieldsType>;
   register: UseFormRegister<FormFieldsType>;
-  formState: any;
+  formState: FormState<FormFieldsType>;
   rules: any;
   label?: string;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
@@ -36,7 +36,9 @@ const Textarea = <FormFieldsType extends FieldValues>({
       />
       <div style={{ width: "20rem" }}>
         {formState.errors[type]?.message && (
-          <span className="error">{formState.errors[type].message}</span>
+          <span className="error">
+            {formState.errors[type]?.message?.toString()}
+          </span>
         )}
       </div>
     </div>
